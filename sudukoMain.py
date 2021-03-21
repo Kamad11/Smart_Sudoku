@@ -69,7 +69,7 @@ if biggest.size != 0:
 
     # try to find solution if one exists
     try:
-        print('Solving...please wait...')
+        print('\nSolving...please wait...')
         sudukoSolver.solve(board)
         print('Solution found!')
     except:
@@ -100,12 +100,13 @@ if biggest.size != 0:
 
     imageArray = ([img, imgThreshold, imgContours, imgBigContour],
                   [imgDetectedDigits, imgSolvedDigits, imgInvWarpColored, inv_perspective])
-    stackedImage = stackImages(imageArray, 1)
+    stackedImage = stackImages(imageArray, 0.7)
     cv2.imshow('Stacked Images', stackedImage)
 
-    print('Done')
+    print('Execution finished!')
 
 else:
     print("No Sudoku Found")
 
-cv2.waitKey(0)
+if cv2.waitKey(0) & 0xFF == ord('q'):
+    cv2.destroyAllWindows()

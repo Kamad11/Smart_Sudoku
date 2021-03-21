@@ -121,16 +121,16 @@ def getPredection(boxes, model):
     return result
 
 
-# 6 -  TO DISPLAY THE SOLUTION ON THE IMAGE
 def displayNumbers(img, numbers, color=(0, 255, 0)):
-    """Splitting the image into 81 small images.
+    """Display the solution on image.
 
     Args:
-        boxes (list): all 81 images.
-        model (.h5 model): the CNN model.
+        img: base image.
+        numbers: numbers to be printed.
+        color: color of numbers, by default green.
 
     Returns:
-        result (list): list of the recognized digits.
+        img: base image with overlayed solution.
     """
     secW = int(img.shape[1]/9)
     secH = int(img.shape[0]/9)
@@ -144,8 +144,15 @@ def displayNumbers(img, numbers, color=(0, 255, 0)):
     return img
 
 
-# 6 - DRAW GRID TO SEE THE WARP PRESPECTIVE EFFICENCY (OPTIONAL)
 def drawGrid(img):
+    """Draw grid to see the warp efficiency.
+
+    Args:
+        img: base image.
+
+    Returns:
+        img: base image with overlayed grid.
+    """
     secW = int(img.shape[1]/9)
     secH = int(img.shape[0]/9)
     for i in range(0, 9):
@@ -158,8 +165,16 @@ def drawGrid(img):
     return img
 
 
-# 6 - TO STACK ALL THE IMAGES IN ONE WINDOW
 def stackImages(imgArray, scale):
+    """To stack all the images in one window.
+
+    Args:
+        imgArray (list): base images.
+        scale (int): scale of stacked images.
+
+    Returns:
+        ver: all the stacked images.
+    """
     rows = len(imgArray)
     cols = len(imgArray[0])
     rowsAvailable = isinstance(imgArray[0], list)
