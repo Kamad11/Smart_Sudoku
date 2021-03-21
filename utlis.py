@@ -1,3 +1,5 @@
+"""This module contains all the functions required for OpenCV."""
+
 import cv2
 import numpy as np
 from tensorflow.keras.models import load_model
