@@ -140,7 +140,7 @@ class Ui_MainWindow(object):
             home_dir = str(os.getcwd())
             img = QtWidgets.QFileDialog.getOpenFileName(None, 'Open File', home_dir)
 
-            model = intialize_predection_model()
+            model = intialize_predection_model('Resources/myModel.h5')
 
             ui.setupUi(upload, img[0], model)
 

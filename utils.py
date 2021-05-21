@@ -7,10 +7,10 @@ import numpy as np
 from keras.models import load_model
 
 
-def intialize_predection_model():
+def intialize_predection_model(path):
     """Load the model and read the weights."""
 
-    model = load_model('Resources/myModel.h5')
+    model = load_model(path)
     return model
 
 
