@@ -135,6 +135,6 @@ class Ui_UploadImage(object):
             self.imgInvWarpColored = self.img.copy()
             self.imgInvWarpColored = cv2.warpPerspective(self.imgSolvedDigits, matrix, (widthImg, heightImg))
             self.inv_perspective = cv2.addWeighted(self.imgInvWarpColored, 1, self.img, 0.5, 1)
-            cv2.imwrite("Resources\\solved.jpg", self.inv_perspective)
+            cv2.imwrite("solved.jpg", self.inv_perspective)
 
-            self.solved_image.setPixmap(QtGui.QPixmap("Resources\\solved.jpg"))
+            self.solved_image.setPixmap(QtGui.QPixmap("solved.jpg"))
