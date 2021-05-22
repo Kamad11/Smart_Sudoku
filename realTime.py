@@ -2,24 +2,27 @@ import cv2
 import numpy as np
 import operator
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QThread, Qt, pyqtSignal, pyqtSlot
+from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import QImage, QPixmap
 from utils import intialize_predection_model
 import realtime_sol as sol
 
-
 class Thread(QThread):
     changePixmap = pyqtSignal(QImage)
+    finalPixmap = pyqtSignal(QImage)
 
     def run(self):
+        global running
+
         model = intialize_predection_model("Resources/digit_model.h5")
         margin = 4
         box = 28 + 2 * margin
         grid_size = 9 * box
         flag = 0
+        count = 0
 
-        cap = cv2.VideoCapture(0)
-        while True:
+        cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        while running:
             ret, frame = cap.read()
             if ret:
                 # image preprocessing
@@ -111,6 +114,7 @@ class Thread(QThread):
                         result = sol.sudoku(grid_text)
 
                     if result is not None:
+                        count += 1
                         flag = 1
                         fond = np.zeros(
                             shape=(grid_size, grid_size, 3), dtype=np.float32
@@ -125,10 +129,10 @@ class Thread(QThread):
                                             (x) * box + margin + 3,
                                             (y + 1) * box - margin - 3,
                                         ),
-                                        cv2.FONT_HERSHEY_SCRIPT_COMPLEX,
-                                        0.9,
-                                        (0, 0, 255),
+                                        cv2.FONT_HERSHEY_SIMPLEX,
                                         1,
+                                        (255, 0, 0),
+                                        2,
                                     )
                         M = cv2.getPerspectiveTransform(pts2, pts1)
 
@@ -143,8 +147,10 @@ class Thread(QThread):
                             "uint8"
                         )
                         dst = cv2.add(img1_bg, img2_fg)
-                        cv2.imwrite("result.jpg", dst)
-                        break
+                        print("count", count)
+                        if count >= 3:
+                            running = False
+                            self.show_frame(dst)
 
                     else:
                         self.show_frame(frame)
@@ -153,24 +159,24 @@ class Thread(QThread):
                     flag = 0
                     self.show_frame(frame)
 
-        cap.release()
-        Ui_RealTime.final_result()
-
     def show_frame(self, frame):
         rgbImage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         h, w, ch = rgbImage.shape
         bytesPerLine = ch * w
-        convertToQtFormat = QImage(
+        QtFormat = QImage(
             rgbImage.data, w, h, bytesPerLine, QImage.Format_RGB888
         )
-        # p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
-        self.changePixmap.emit(convertToQtFormat)
-
+        if running:
+            self.changePixmap.emit(QtFormat)
+        else:
+            self.finalPixmap.emit(QtFormat)
 
 class Ui_RealTime(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, is_on):
         super().__init__()
-        [...]
+
+        global running
+        running = is_on
         self.initUI()
 
     @pyqtSlot(QImage)
@@ -189,12 +195,9 @@ class Ui_RealTime(QtWidgets.QWidget):
         self.feed.setScaledContents(True)
         self.feed.setObjectName("feed")
         self.gridLayout.addWidget(self.feed, 0, 0, 1, 1)
-
-        self.th = Thread(self)
-        self.th.changePixmap.connect(self.setImage)
-        self.th.start()
-        self.show()
-    
-    def final_result(self):
-        self.th.quit()
-        self.feed.setPixmap(QPixmap.fromImage("result.jpg"))
+        
+        if running:
+            th = Thread(self)
+            th.changePixmap.connect(self.setImage)
+            th.finalPixmap.connect(self.setImage)
+            th.start()
