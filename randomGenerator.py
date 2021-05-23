@@ -953,6 +953,7 @@ class Ui_RandomGenerator(object):
                     self.board[i][j].setDisabled(True)
 
     def solve_board(self):
+        self.check_solution_button.setDisabled(True)
         self.reset_button.setDisabled(True)
         self.solution_button.setDisabled(True)
         for i in range(9):
