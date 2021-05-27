@@ -1,4 +1,8 @@
-# Smart Sudoku
+<div align="center">
+<img src="Resources\logo_transparent.png" style="height: 150px" />
+<h1>Smart Sudoku</h1>
+</div>
+
 An innovative approach to solving the simple sudoku game using artificial intelligence model, image processing, and a basic backtracking algorithm. The visualization of the project is done using a GUI application made with PyQt5. The application has 3 different modes for the user to choose from.
 
 ## Three modes to play
@@ -12,10 +16,22 @@ This is another image processing mode in which the user needs to upload an image
 This is our interactive mode which randomly generates a unique solvable sudoku board for the user to solve. They can check their solution or get the solution obtained using the backtracking algorithm if they get stuck.
 
 ## Installation
+`git clone https://github.com/kamad11/Smart_Sudoku`
 
+### Python GUI version
+`cd Smart_Sudoku`  
+`python mainWindow.py`
+
+### Executable version
+Move into **build\exe.win-amd64-3.8** and extract **lib.zip** in the same folder. The **mainWindow.exe** present in the same folder is now ready to be run.
 
 ## Usage
-
+<div style="width: 450px">
+<img alt="home screen" src="Resources\readme\homescreen.png" />
+<img alt="instructions" src="Resources\readme\instructions.png" />
+<img alt="random generator" src="Resources\readme\random_generator.png" />
+<img alt="upload solved" src="Resources\readme\upload_solved.png" />
+</div>
 
 ## Contributors
 ### Kamad Saxena
