@@ -1,5 +1,5 @@
 <div align="center">
-<img src="Resources\logo_transparent.png" style="height: 150px" />
+<img src="Resources\logo_transparent.png" height=150px />
 <h1>Smart Sudoku</h1>
 </div>
 
@@ -26,12 +26,8 @@ This is our interactive mode which randomly generates a unique solvable sudoku b
 Move into **build\exe.win-amd64-3.8** and extract **lib.zip** in the same folder. The **mainWindow.exe** present in the same folder is now ready to be run.
 
 ## Usage
-<div style="width: 450px">
-<img alt="home screen" src="Resources\readme\homescreen.png" />
-<img alt="instructions" src="Resources\readme\instructions.png" />
-<img alt="random generator" src="Resources\readme\random_generator.png" />
-<img alt="upload solved" src="Resources\readme\upload_solved.png" />
-</div>
+<img alt="home screen" src="Resources\readme\homescreen.png" width=450px /><img alt="instructions" src="Resources\readme\instructions.png" width=450px />
+<img alt="random generator" src="Resources\readme\random_generator.png" width=450px /><img alt="upload solved" src="Resources\readme\upload_solved.png" width=450px />
 
 ## Contributors
 ### Kamad Saxena
